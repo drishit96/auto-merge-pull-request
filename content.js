@@ -5,16 +5,18 @@ window.setInterval(function () {
   let confirmMergeButton = document.querySelector("#partial-pull-merging > div.merge-pr.js-merge-pr.js-details-container.Details.is-merging.is-updating-via-merge > div > form > div > div.commit-form-actions > div > div.BtnGroup.btn-group-merge > button");
   let confirmSquashAndMerge = document.querySelector("#partial-pull-merging > div.merge-pr.js-merge-pr.js-details-container.Details.is-updating-via-merge.is-squashing > div > form > div > div.commit-form-actions > div > div.BtnGroup.btn-group-squash > button");
 
-  if (confirmMergeButton && !confirmMergeButton.disabled) {
-    confirmMergeButton.click();
-    chrome.runtime.sendMessage({ triggerNotification: true }, function () {});
-  } else if (confirmSquashAndMerge && !confirmSquashAndMerge.disabled) {
-    confirmSquashAndMerge.click();
-    chrome.runtime.sendMessage({ triggerNotification: true }, function () {});
-  } else if (mergeButton && !mergeButton.disabled) {
+  if (mergeButton && !mergeButton.disabled) {
     mergeButton.click();
+    if (confirmMergeButton && !confirmMergeButton.disabled) {
+      confirmMergeButton.click();
+      chrome.runtime.sendMessage({ triggerNotification: true }, function () {});
+    }
   } else if (squashAndMergeButton && !squashAndMergeButton.disabled) {
     squashAndMergeButton.click();
+    if (confirmSquashAndMerge && !confirmSquashAndMerge.disabled) {
+      confirmSquashAndMerge.click();
+      chrome.runtime.sendMessage({ triggerNotification: true }, function () {});
+    }
   } else if (updateButton && !updateButton.disabled) {
     updateButton.click();
   }
